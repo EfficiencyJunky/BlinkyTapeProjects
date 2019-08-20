@@ -692,7 +692,7 @@ LEDStripSegment ledStrip_bike_center(&(leds_bike_center[0]), gPal, 0, NUM_LEDS_B
 //USE THIS IF YOU WANT THE STRIP FLIPPED FOR FIRE ANIMATION
 //LEDStripSegment ledStrip_bike_center(&(leds_bike_center[0]), gPal, 0, NUM_LEDS_BIKE_CENTER_STRIP-1, true);
 
-// don't use these ever
+// don't use these unless you want to create multiple segments in a single strip
 //LEDStripSegment ledStrip_bike_center(&(leds_bike_center[0]), gPal, NUM_LEDS_BIKE_CENTER_STRIP, NUM_LEDS_BIKE_TOTAL - 1, NUM_LEDS_BIKE_TOTAL);
 //LEDStripSegment ledStrip_bike_side(&(leds_bike_center[0]), gPal, NUM_LEDS_BIKE_CENTER_STRIP, NUM_LEDS_BIKE_TOTAL - 1);
 
