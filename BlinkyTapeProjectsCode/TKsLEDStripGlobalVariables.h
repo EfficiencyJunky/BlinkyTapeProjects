@@ -11,188 +11,145 @@
 #define TKsLEDStripGlobalVariables_h
 
 
+
 // ******************************************************************
 //            Includes and GLOBAL define
 // ******************************************************************
-//#include <FastLED.h>
 
-// __MOLDOVER__, __GGFO_BODY_DIAMOND__, or __GGFO_SUIT__
 
-#define __MOLDOVER__
+#define __LIGHT_STICKS__
+#define __BLINKY_TAPE__
 
+enum {SHOW_PATTERN, TO_CHANGE_BRIGHTNESS, CHANGE_BRIGHTNESS, TO_CHANGE_PALETTE, CHANGE_PALETTE, TO_SHOW_PATTERN};
+
+#define ARRAY_SIZE(A) (sizeof(A) / sizeof((A)[0]))
 
 // ************************************************************************************************************
 //            Strip settings -- Change these to fit your application
 // ************************************************************************************************************
 
-// how many individually addressable strips are you using total?
-// needs to match the number of initialized strips you will actually be using
 
-#ifdef __GGFO_BODY_DIAMOND__
-    #define TOTAL_NUM_STRIPS 2
+#ifdef __LIGHT_STICKS__
+  #define NUM_LEDS_BIKE_CENTER_STRIP  34
+  #define NUM_LEDS_BIKE_TOTAL NUM_LEDS_BIKE_CENTER_STRIP
+  #define REVERSE_STRIP_FOR_FIRE_ANIMATION true
 
-    // DATA PIN FOR EACH STRIP WE ARE USING
-    #define DATA_PIN_STRIP_01 3    //right section
-    #define DATA_PIN_STRIP_02 5    //left section
-
-    // NUMBER OF LED'S IN EACH STRIP WE ARE USING
-    #define NUM_PIXELS_IN_STRIP_01 95    //right section
-    #define NUM_PIXELS_IN_STRIP_02 95    //left section
-
-    // DATA PIN AND NUMBER OF LED'S IN EACH STRIP WE ARE NOT USING
-    #define DATA_PIN_STRIP_03 11
-    #define DATA_PIN_STRIP_04 12
-    #define DATA_PIN_STRIP_05 13
-    #define DATA_PIN_STRIP_06 14
-    #define DATA_PIN_STRIP_07 15
-    #define DATA_PIN_STRIP_08 16
-    #define NUM_PIXELS_IN_STRIP_03 30
-    #define NUM_PIXELS_IN_STRIP_04 30
-    #define NUM_PIXELS_IN_STRIP_05 30
-    #define NUM_PIXELS_IN_STRIP_06 30
-    #define NUM_PIXELS_IN_STRIP_07 30
-    #define NUM_PIXELS_IN_STRIP_08 30
+#elif defined __TWO_SEGMENTS_ONE_STRIP__
+  // do something here
 
 
-#elif defined __GGFO_SUIT__
-    #define TOTAL_NUM_STRIPS 5
-
-    // DATA PIN FOR EACH STRIP
-    #define DATA_PIN_STRIP_01 3     //left jacket
-    #define DATA_PIN_STRIP_02 5     //right jacket
-    #define DATA_PIN_STRIP_03 6     //back jacket
-    #define DATA_PIN_STRIP_04 14    //left leg
-    #define DATA_PIN_STRIP_05 11    //right leg
-
-    // NUMBER OF LED'S IN EACH STRIP
-    #define NUM_PIXELS_IN_STRIP_01 127     //left jacket   -- 132 LEDs
-    #define NUM_PIXELS_IN_STRIP_02 127     //right jacket  -- 132 LEDs
-    #define NUM_PIXELS_IN_STRIP_03 112     //back jacket   -- 112 LEDs
-    #define NUM_PIXELS_IN_STRIP_04 50     //left leg
-    #define NUM_PIXELS_IN_STRIP_05 50     //right leg
-
-    // WHERE TO REVERSE PIXEL ORIENTATION DUE TO IMPROPER WIRING
-    #define LEFT_REVERSE_PIXEL_ORDER_AT_PIXEL_NUMBER 46        // left jacket (strip 01) reverse the pixel order here (because of incorrect wiring)
-    #define BACK_REVERSE_PIXEL_ORDER_AT_PIXEL_NUMBER 100        // back jacket (strip 03) reverse the pixel order here (because of incorrect wiring)
-
-    // DATA PIN AND NUMBER OF LED'S IN EACH STRIP WE ARE NOT USING
-    #define DATA_PIN_STRIP_06 13
-    #define DATA_PIN_STRIP_07 15
-    #define DATA_PIN_STRIP_08 16
-    #define NUM_PIXELS_IN_STRIP_06 30
-    #define NUM_PIXELS_IN_STRIP_07 30
-    #define NUM_PIXELS_IN_STRIP_08 30
-
-
-#elif defined __MOLDOVER__
-    #define TOTAL_NUM_STRIPS 8
-
-    // DATA PIN FOR EACH STRIP
-    #define DATA_PIN_STRIP_01 9      // pin 9
-    #define DATA_PIN_STRIP_02 10     // pin 10
-    #define DATA_PIN_STRIP_03 11     // pin 11
-    #define DATA_PIN_STRIP_04 12     // pin 12
-    #define DATA_PIN_STRIP_05 13     // pin 13
-    #define DATA_PIN_STRIP_06 14     // pin 14
-    #define DATA_PIN_STRIP_07 15     // pin 15
-    #define DATA_PIN_STRIP_08 16     // pin 16
-
-    // NUMBER OF LED'S IN EACH STRIP
-    #define NUM_PIXELS_IN_STRIP_01 30     // pin 9
-    #define NUM_PIXELS_IN_STRIP_02 30     // pin 10
-    #define NUM_PIXELS_IN_STRIP_03 30     // pin 11
-    #define NUM_PIXELS_IN_STRIP_04 30     // pin 12
-    #define NUM_PIXELS_IN_STRIP_05 30     // pin 13
-    #define NUM_PIXELS_IN_STRIP_06 30     // pin 14
-    #define NUM_PIXELS_IN_STRIP_07 30     // pin 15
-    #define NUM_PIXELS_IN_STRIP_08 30     // pin 16
+#elif defined __TWO_STRIPS__
+  // do something here
 
 #endif
+
+
+
+// ************************************************************************************************************
+//            Hardware settings -- Change these to fit the board you're using
+// ************************************************************************************************************
+
+// ******* Blinky Tape Pins *******
+#ifdef __BLINKY_TAPE__
+  // use these global variables
+  #define DATA_PIN_BIKE_CENTER_STRIP    13
+  //#define DATA_PIN_BIKE_SIDE_STRIP   11
+
+  // Use these for strip with 2 buttons
+  #define BUTTON_PIN_BIKE_CENTER_STRIP_AND_BRIGHTNESS_CHANGE  11
+  #define BUTTON_PIN_BIKE_CENTER_STRIP_AND_BRIGHTNESS_CHANGE_backup  10
+
+  #define BUTTON_PIN_BIKE_SIDE_STRIP_AND_PALETTE_CHANGE  7
+
+  // Use these for strip with 1 button
+  //#define BUTTON_PIN_BIKE_CENTER_STRIP_AND_BRIGHTNESS_CHANGE  10
+  //#define BUTTON_PIN_BIKE_SIDE_STRIP_AND_PALETTE_CHANGE  11
+
+  #define PULLUP              true // these should be true for kevin's button setup
+  #define INVERT              true // these should be true for kevin's button setup  
+
+
+
+
+// ******* Trinket Pro Pins *******
+#elif defined __TRINKET_PRO__
+  #define DATA_PIN_BIKE_CENTER_STRIP    10
+  #define DATA_PIN_BIKE_SIDE_STRIP   11
+  #define BUTTON_PIN_BIKE_CENTER_STRIP_AND_BRIGHTNESS_CHANGE  A1
+  #define BUTTON_PIN_BIKE_SIDE_STRIP_AND_PALETTE_CHANGE  A2
+
+  #define PULLUP              false // these should be true for kevin's button setup
+  #define INVERT              false // these should be true for kevin's button setup
+
+
+
+// ******* Teensy Pins *******
+#elif defined __TEENSY__
+  #define LED_ENABLE_PIN 7
+  #define DATA_PIN_BIKE_CENTER_STRIP    11
+  #define DATA_PIN_BIKE_SIDE_STRIP   13
+  #define BUTTON_PIN_BIKE_CENTER_STRIP_AND_BRIGHTNESS_CHANGE  22
+  #define BUTTON_PIN_BIKE_SIDE_STRIP_AND_PALETTE_CHANGE  21
+
+  #define PULLUP              true // these should be true for kevin's button setup
+  #define INVERT              true // these should be true for kevin's button setup
+
+
+#endif
+
+
+
+
 
 
 // ***************************************************************************************************************
-//            OTHER HARDWARE OPTIONS (Default Midi channel, dipswitch pins, MIDI Note Value Mappings etc.)
+//            FastLED GLOBAL VARIABLES -- Change these to fit your processor speed and power consumption needs
 // ***************************************************************************************************************
-#ifndef DEFAULT_MIDI_CHANNEL
-  #define DEFAULT_MIDI_CHANNEL 1                // Sets default MIDI Channel if dip switches are set to 0000
-#endif
 
-// order of dipswitch pins where pin 1 is LSB and pin 4 is MSB
+#define LED_TYPE NEOPIXEL
+#define FRAMES_PER_SECOND  120
 
-#if defined(__GGFO_BODY_DIAMOND__) || defined(__GGFO_SUIT__)
-  #define DIP_SWITCH_PIN_1    19 // this sets pin 1 (LSB) of the DIP switch to connect to input 8
-  #define DIP_SWITCH_PIN_2    20 // this sets pin 2 of the DIP switch to connect to input 7
-  #define DIP_SWITCH_PIN_3    21 // this sets pin 3 of the DIP switch to connect to input 6
-  #define DIP_SWITCH_PIN_4    22 // this sets pin 4 (MSB) of the DIP switch to connect to input 5
-
-#elif defined __MOLDOVER__
-  #define DIP_SWITCH_PIN_1    8 // this sets pin 1 (LSB) of the DIP switch to connect to input 8
-  #define DIP_SWITCH_PIN_2    7 // this sets pin 2 of the DIP switch to connect to input 7
-  #define DIP_SWITCH_PIN_3    6 // this sets pin 3 of the DIP switch to connect to input 6
-  #define DIP_SWITCH_PIN_4    5 // this sets pin 4 (MSB) of the DIP switch to connect to input 5
-#endif
-
-//Maps the human readable name of the note to the MIDI pitch value
-#define NOTE_A0   33
-#define NOTE_Bb0  34
-#define NOTE_B0   35
-#define NOTE_C1   36
-#define NOTE_Db1  37
-#define NOTE_D1   38
-#define NOTE_Eb1  39
-#define NOTE_E1   40
-#define NOTE_F1   41
-#define NOTE_Gb1  42
-#define NOTE_G1   43
-#define NOTE_Ab1  44
+#define INITIAL_BRIGHTNESS     60 
+#define BRIGHTNESS_INCREMENT   20 
+#define BRIGHTNESS_MAX_MODULO 180
 
 
 // ***************************************************************************************************************
-//            FastLED.Show() settings -- Change these to fit your processor speed and power consumption needs
+//            BUTTON GLOBAL VARIABLES -- Change these to fit your processor speed and power consumption needs
 // ***************************************************************************************************************
-
-#ifndef FRAMES_PER_SECOND
-  #define FRAMES_PER_SECOND  60
-#endif
-
-//#ifndef
-//  #define BRIGHTNESS  96
-//#endif
-
-#ifndef WHITE_BRIGHTNESS_ATTENUATOR
-  #define WHITE_BRIGHTNESS_ATTENUATOR 0.72 //used to lower the output brightness of white color only (recommended between 0.6 and 0.84)
-#endif
+#define DEBOUNCE_MS         20
+#define LONG_PRESS          1000
 
 
 // ***************************************************************************************************************
-//            VARIOUS OTHER GLOBAL DECLARATIONS. DON'T NEED TO CHANGE THESE
+//           FIRE ANIMATION GLOBAL VARIABLES
 // ***************************************************************************************************************
+// There are two main parameters you can play with to control the look and
+// feel of your fire: COOLING (used in step 1 above), and SPARKING (used
+// in step 3 above).
+//
+// COOLING: How much does the air cool as it rises?
+// Less cooling = taller flames.  More cooling = shorter flames.
+// Default 55, suggested range 20-100 
+#define COOLING  55
 
-#ifndef FULL_SATURATION
-  #define FULL_SATURATION 255 // Keeps saturation at full
-#endif
-
-#ifndef FULL_BRIGHTNESS
-  #define FULL_BRIGHTNESS 255 // Sets brightness to full. Does not affect the FastLED global brightness
-#endif
-
-#ifndef WHITE_HUE_COLOR
-  #define WHITE_HUE_COLOR 255  // Saves special hue value for white.
-#endif                         // If hue is set to 255, the saturation will drop to 0 making strip turn white (Max MIDI value of (127 x 2) + 1)
+// SPARKING: What chance (out of 255) is there that a new spark will be lit?
+// Higher chance = more roaring fire.  Lower chance = more flickery fire.
+// Default 120, suggested range 50-200.
+#define SPARKING 120
 
 
 
 
-/*
-******** MATH CONSTANTS ********
-#ifndef MY_TWO_PI
-  #define MY_TWO_PI 6.283185307179586476925286766559
-#endif
-*/
+
+
+
+
 
 // ***************************************************************************************************************
 //            GLOBAL ANIMATION AND COLOR PALLETTE DECLARATIONS
 // ***************************************************************************************************************
+
 
 //add more animations here
 
@@ -226,8 +183,6 @@ enum AnimationType {
 #define COLOR_PALETTE_ANIMATION_UPDATE_INTERVAL 15
 #define COLOR_WIPE_MIDDLE_OUT_ANIMATION_UPDATE_INTERVAL 2
 
-
-#define WITH_CC_CONTROL true
 
 /*
 DEFINE_GRADIENT_PALETTE( MyRainbow_gp_2 ) {
