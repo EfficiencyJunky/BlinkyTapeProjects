@@ -62,9 +62,8 @@ enum {SHOW_PATTERN, TO_CHANGE_BRIGHTNESS, CHANGE_BRIGHTNESS, TO_CHANGE_PALETTE, 
 // ************************************************************************************************************
 
 
-
 // ******* Trinket Pro Pins FOR JAKE *******
-#elif defined __TRINKET_PRO__
+#ifdef __TRINKET_PRO__
   #define DATA_PIN_BIKE_CENTER_STRIP    11
   #define DATA_PIN_BIKE_SIDE_STRIP   9
 
@@ -78,9 +77,8 @@ enum {SHOW_PATTERN, TO_CHANGE_BRIGHTNESS, CHANGE_BRIGHTNESS, TO_CHANGE_PALETTE, 
 
 
 
-
 // ******* Blinky Tape Pins *******
-#ifdef __BLINKY_TAPE__
+#elif defined __BLINKY_TAPE__
   // use these global variables
   #define DATA_PIN_BIKE_CENTER_STRIP    13
   //#define DATA_PIN_BIKE_SIDE_STRIP   11
@@ -97,6 +95,7 @@ enum {SHOW_PATTERN, TO_CHANGE_BRIGHTNESS, CHANGE_BRIGHTNESS, TO_CHANGE_PALETTE, 
 
   #define PULLUP              true // these should be true for kevin's button setup
   #define INVERT              true // these should be true for kevin's button setup  
+
 
 
 
