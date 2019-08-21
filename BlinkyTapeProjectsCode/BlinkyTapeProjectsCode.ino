@@ -23,13 +23,47 @@ FASTLED_USING_NAMESPACE
 // ****************** CONSTANT DEFINED VARIABLES ********************
 //
 // ******************************************************************
+/*
+DEFINE_GRADIENT_PALETTE( MyRainbow_gp_2 ) {
+      0,  255,  0,  0, // Red
+     32,  171, 85,  0, // Orange
+     64,  171,171,  0, // Yellow
+     96,    0,255,  0, // Green
+    128,    0,171, 85, // Aqua
+    160,    0,  0,255, // Blue
+    192,   85,  0,171, // Purple
+    224,  171,  0, 85, // Pink
+    253,  255,  0,  0,// and back to Red
+    254,  255,  255,  255,// and white at the top
+    255,  255,  255,  255};// and white at the top
+
+
+DEFINE_GRADIENT_PALETTE( JakesPal ) {
+      0,  0,  0,  0,
+     32,  0,  255,  0,
+     64,  0,  0,  0,
+     96,  0,  0,  0,
+    128,  0,  0,  0,
+    160,  0,  255,  0,
+    192,  0,  0,  0,
+    224,  0,  0,  0,
+    253,  0,  0,  0,
+    254,  0,  0,  0,
+    255,  0,  0,  0
+    
+    };// and white at the top
+
+*/
+
 
 //PartyColors is the Instagram palette
 //CRGBPalette16 gPal(LavaColors_p);
 CRGBPalette16 gPal(HeatColors_p);
 //CRGBPalette16 gPal(CloudColors_p);
 //CRGBPalette16 gPal(PartyColors_p);
+//CRGBPalette16 gPal(MyRainbow_gp_2);
 
+//CRGBPalette16 gPal = JakesPal;
 
 Button button_BikeCenterStrip_and_BrightnessChange(BUTTON_PIN_BIKE_CENTER_STRIP_AND_BRIGHTNESS_CHANGE, PULLUP, INVERT, DEBOUNCE_MS);
 Button button_BikeCenterStrip_and_BrightnessChange_backup(BUTTON_PIN_BIKE_CENTER_STRIP_AND_BRIGHTNESS_CHANGE_backup, PULLUP, INVERT, DEBOUNCE_MS);
@@ -53,22 +87,26 @@ TKsBlinkyTapeLEDController ledStrip_bike_side(&(leds_bike_side[0]), gPal, NUM_LE
 //
 // ***************************************************************************************
 
-CRGB leds_bike_center[NUM_LEDS_BIKE_TOTAL];
-//CRGB leds_bike_side[NUM_LEDS_BIKE_SIDE_STRIP];
+
 
 #ifdef __LIGHT_STICKS__
+  CRGB leds_bike_center[NUM_LEDS_BIKE_TOTAL];
   TKsBlinkyTapeLEDController ledStrip_bike_center(&(leds_bike_center[0]), gPal, NUM_LEDS_BIKE_CENTER_STRIP, true);
 
 
 #elif defined __TWO_SEGMENTS_ONE_STRIP__
+  CRGB leds_bike_center[NUM_LEDS_BIKE_TOTAL];
   TKsBlinkyTapeLEDController ledStrip_bike_center(&(leds_bike_center[0]), gPal, NUM_LEDS_BIKE_CENTER_STRIP);
-//  TKsBlinkyTapeLEDController ledStrip_bike_side(&(leds_bike_center[0]), gPal, NUM_LEDS_BIKE_CENTER_STRIP, NUM_LEDS_BIKE_TOTAL);
 
   TKsBlinkyTapeLEDController ledStrip_bike_side(&(leds_bike_center[0]) + NUM_LEDS_BIKE_CENTER_STRIP, gPal, NUM_LEDS_BIKE_SIDE_STRIP);
 
 
 #elif defined __TWO_STRIPS__
-  // do something here
+  CRGB leds_bike_center[NUM_LEDS_BIKE_CENTER_STRIP];
+  CRGB leds_bike_side[NUM_LEDS_BIKE_SIDE_STRIP];
+  TKsBlinkyTapeLEDController ledStrip_bike_center(&(leds_bike_center[0]), gPal, NUM_LEDS_BIKE_CENTER_STRIP, true);
+
+  TKsBlinkyTapeLEDController ledStrip_bike_side(&(leds_bike_side[0]), gPal, NUM_LEDS_BIKE_SIDE_STRIP);
 
 #endif
 
@@ -106,10 +144,21 @@ void setup() {
         //FastLED.addLeds<LED_TYPE,DATA_PIN_BIKE_CENTER_STRIP>(leds, NUM_LEDS_TOTAL).setCorrection(TypicalLEDStrip);
   //***** VERSION WHERE THERE ARE MULTIPLE SEGMENTS IN A SINGLE STRIP *****
 
-  //FastLED.addLeds<LED_TYPE,DATA_PIN_BIKE_CENTER_STRIP>(leds_bike_center, NUM_LEDS_BIKE_CENTER_STRIP).setCorrection(TypicalLEDStrip);
-  //FastLED.addLeds<LED_TYPE,DATA_PIN_BIKE_SIDE_STRIP>(leds_bike_side, NUM_LEDS_BIKE_SIDE_STRIP).setCorrection(TypicalLEDStrip);
 
+#ifdef __LIGHT_STICKS__
   FastLED.addLeds<LED_TYPE,DATA_PIN_BIKE_CENTER_STRIP>(leds_bike_center, NUM_LEDS_BIKE_TOTAL).setCorrection(TypicalLEDStrip);
+
+#elif defined __TWO_SEGMENTS_ONE_STRIP__
+  FastLED.addLeds<LED_TYPE,DATA_PIN_BIKE_CENTER_STRIP>(leds_bike_center, NUM_LEDS_BIKE_TOTAL).setCorrection(TypicalLEDStrip);
+
+#elif defined __TWO_STRIPS__
+  FastLED.addLeds<LED_TYPE,DATA_PIN_BIKE_CENTER_STRIP>(leds_bike_center, NUM_LEDS_BIKE_CENTER_STRIP).setCorrection(TypicalLEDStrip);
+  FastLED.addLeds<LED_TYPE,DATA_PIN_BIKE_SIDE_STRIP>(leds_bike_side, NUM_LEDS_BIKE_SIDE_STRIP).setCorrection(TypicalLEDStrip);
+
+#endif
+
+
+
 
   // Use this for the Staff
   //FastLED.addLeds<LED_TYPE,DATA_PIN_BIKE_SIDE_STRIP>(leds_bike_center, NUM_LEDS_BIKE_TOTAL).setCorrection(TypicalLEDStrip);
@@ -140,6 +189,10 @@ void loop() {
 
 #ifdef __TWO_SEGMENTS_ONE_STRIP__
   ledStrip_bike_side.Update();
+
+#elif defined __TWO_STRIPS__
+  ledStrip_bike_side.Update();
+  
 #endif
 
   FastLED.show();
@@ -156,7 +209,40 @@ void readButtons(){
   //Read the button associated with bike center strip and brightness change (with long press)
   button_BikeCenterStrip_and_BrightnessChange.read();
 
-  switch (ledStrip_bike_center.getStripState()) {
+  if (button_BikeCenterStrip_and_BrightnessChange.wasReleased()){
+
+    ledStrip_bike_center.nextPattern();
+
+  }
+
+
+
+  //Read the button associated with bike side strip and palette change (with long press)
+  button_BikeSideStrip_and_PaletteChange.read();
+
+  if (button_BikeSideStrip_and_PaletteChange.wasReleased()){
+    ledStrip_bike_side.nextPattern();
+
+  }
+
+//  //Read the button associated with bike side strip and palette change (with long press)
+//  button_BikeSideStrip_and_PaletteChange.read();
+//
+//  if (button_BikeSideStrip_and_PaletteChange.wasReleased()){
+//    ledStrip_bike_center.nextPalette();
+//
+//#ifdef __TWO_SEGMENTS_ONE_STRIP__
+//        ledStrip_bike_side.nextPalette();
+//#endif
+//  }
+
+
+
+
+
+/*
+  
+   switch (ledStrip_bike_center.getStripState()) {
 
     //This state watches for short and long presses, switches the pattern for
     //short presses, and moves to the TO_CHANGE_BRIGHTNESS state for long presses.
@@ -165,9 +251,9 @@ void readButtons(){
 
         ledStrip_bike_center.nextPattern();
 
-#ifdef __TWO_SEGMENTS_ONE_STRIP__
-        ledStrip_bike_side.nextPattern();
-#endif
+//#ifdef __TWO_SEGMENTS_ONE_STRIP__
+//        ledStrip_bike_side.nextPattern();
+//#endif
 
 
       }
@@ -203,10 +289,10 @@ void readButtons(){
         ledStrip_bike_center.setStripState(SHOW_PATTERN);
       }
       break;
-  }
-
-
-
+  } 
+  
+  
+ 
   button_BikeCenterStrip_and_BrightnessChange_backup.read();
 
   switch (ledStrip_bike_center.getStripState()) {
@@ -217,9 +303,9 @@ void readButtons(){
       if (button_BikeCenterStrip_and_BrightnessChange_backup.wasReleased()){
         ledStrip_bike_center.nextPattern();
 
-#ifdef __TWO_SEGMENTS_ONE_STRIP__
-        ledStrip_bike_side.nextPattern();
-#endif
+//#ifdef __TWO_SEGMENTS_ONE_STRIP__
+//        ledStrip_bike_side.nextPattern();
+//#endif
 
       }
       else if (button_BikeCenterStrip_and_BrightnessChange_backup.pressedFor(LONG_PRESS)){
@@ -255,20 +341,9 @@ void readButtons(){
       }
       break;
   }
+*/
 
 
-
-
-  //Read the button associated with bike side strip and palette change (with long press)
-  button_BikeSideStrip_and_PaletteChange.read();
-
-  if (button_BikeSideStrip_and_PaletteChange.wasReleased()){
-    ledStrip_bike_center.nextPalette();
-
-#ifdef __TWO_SEGMENTS_ONE_STRIP__
-        ledStrip_bike_side.nextPalette();
-#endif
-  }
 
 
 /*

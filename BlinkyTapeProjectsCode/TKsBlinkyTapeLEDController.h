@@ -46,11 +46,24 @@ class TKsBlinkyTapeLEDController
     void nextPattern();
     void nextPalette();
 
+
+
+    //********** JAKES MEMBER FUNCTIOINS **********
+    //********** JAKES MEMBER FUNCTIOINS **********
+
+    void nextPaletteSpeed();
+    //********** JAKES MEMBER FUNCTIOINS **********
+    //********** JAKES MEMBER FUNCTIOINS **********     
+    
+
+    
+
     void fastBlink();
     void showCurrentBrightness();
     void showCurrentPalette();
     void setStripState(uint8_t NEW_STATE);
     uint8_t getStripState();
+
 
 
 
@@ -91,7 +104,7 @@ class TKsBlinkyTapeLEDController
     unsigned long fireUpdateInterval = 15;
     unsigned long cycleUpdateInterval = 10000;
     
-    typedef void (TKsBlinkyTapeLEDController::*AnimationsList[13])(); // make sure to update the number (currently 11) when adding animations to the structure below
+    typedef void (TKsBlinkyTapeLEDController::*AnimationsList[12])(); // make sure to update the number (currently 11) when adding animations to the structure below
   
     AnimationsList gPatterns = { &TKsBlinkyTapeLEDController::rainbow, 
                                  &TKsBlinkyTapeLEDController::rainbowWithGlitter,
@@ -101,12 +114,19 @@ class TKsBlinkyTapeLEDController
                                  &TKsBlinkyTapeLEDController::sinelon,
                                  &TKsBlinkyTapeLEDController::sinelon2,
                                  &TKsBlinkyTapeLEDController::juggle,
-                                 &TKsBlinkyTapeLEDController::gearDots,
+//                                 &TKsBlinkyTapeLEDController::gearDots,
                                  &TKsBlinkyTapeLEDController::bpm, 
                                  &TKsBlinkyTapeLEDController::FillLEDsFromPaletteColors,
                                  &TKsBlinkyTapeLEDController::fire2012WithPalette, // always must be third to last
                                  &TKsBlinkyTapeLEDController::cycle, //this animation always must be second to last
                                  &TKsBlinkyTapeLEDController::fadeToBlack};
+
+
+//    typedef void (TKsBlinkyTapeLEDController::*AnimationsList[2])(); // make sure to update the number (currently 11) when adding animations to the structure below
+//
+//    AnimationsList gPatterns = { 
+//                                 &TKsBlinkyTapeLEDController::FillLEDsFromPaletteColors,
+//                                 &TKsBlinkyTapeLEDController::fadeToBlack};
     
     //Need to add a list of palettes to cycle though here            
     CRGBPalette16 gPalettes;
@@ -116,6 +136,13 @@ class TKsBlinkyTapeLEDController
     uint8_t gHue = 0; // rotating "base color" used by many of the patterns
 
     uint8_t cycleFunctionPatternIndex = 0;
+
+
+    // JAKES VARIABLES
+    uint8_t paletteSpeed = 15;
+    
+
+
     
 
 // GEAR DOTS

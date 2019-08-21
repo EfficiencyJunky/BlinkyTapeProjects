@@ -220,6 +220,23 @@ uint8_t TKsBlinkyTapeLEDController::getStripState(){
 
 
 // *********************************************************************************************************
+// ******************************* JAKES ANIMATION METHODS ***********************************************
+// ******************************* JAKES ANIMATION METHODS ***********************************************
+// ******************************* JAKES ANIMATION METHODS ***********************************************
+// ******************************* JAKES ANIMATION METHODS ***********************************************
+// *********************************************************************************************************
+void TKsBlinkyTapeLEDController::nextPaletteSpeed() {
+
+  patternUpdateInterval--;
+
+  if(patternUpdateInterval == 0){
+    patternUpdateInterval = 15;
+  }
+  
+}
+
+
+// *********************************************************************************************************
 // ******************************* PRIVATE ANIMATION METHODS ***********************************************
 // ******************************* PRIVATE ANIMATION METHODS ***********************************************
 // ******************************* PRIVATE ANIMATION METHODS ***********************************************
@@ -457,7 +474,7 @@ void TKsBlinkyTapeLEDController::FillLEDsFromPaletteColors()
     for( int i = 0; i < numPixelsInStrip; i++) {
         ledStrip[i] = ColorFromPalette( gPalettes, colorIndex);
 //          ledStrip[ledOrder[i]] = ColorFromPalette( gPalettes, colorIndex);
-        colorIndex += 3;
+        colorIndex += paletteSpeed;
     }
 }  
 

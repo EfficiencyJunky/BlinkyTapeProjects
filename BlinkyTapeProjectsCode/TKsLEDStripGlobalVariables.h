@@ -16,15 +16,19 @@
 //            Includes and GLOBAL define
 // ******************************************************************
 
-
+/*
 #define __LIGHT_STICKS__
 #define __BLINKY_TAPE__
-
-
-/*
-#define __TWO_SEGMENTS_ONE_STRIP__
-#define __TRINKET_PRO__
 */
+
+
+//#define __TWO_SEGMENTS_ONE_STRIP__
+//#define __TRINKET_PRO__
+
+
+#define __TWO_STRIPS__
+#define __TRINKET_PRO__
+
 
 enum {SHOW_PATTERN, TO_CHANGE_BRIGHTNESS, CHANGE_BRIGHTNESS, TO_CHANGE_PALETTE, CHANGE_PALETTE, TO_SHOW_PATTERN};
 
@@ -41,12 +45,13 @@ enum {SHOW_PATTERN, TO_CHANGE_BRIGHTNESS, CHANGE_BRIGHTNESS, TO_CHANGE_PALETTE, 
 
 #elif defined __TWO_SEGMENTS_ONE_STRIP__
 
-  #define NUM_LEDS_BIKE_CENTER_STRIP  30
-  #define NUM_LEDS_BIKE_SIDE_STRIP    20
+  #define NUM_LEDS_BIKE_CENTER_STRIP  50
+  #define NUM_LEDS_BIKE_SIDE_STRIP    30
   #define NUM_LEDS_BIKE_TOTAL (NUM_LEDS_BIKE_CENTER_STRIP + NUM_LEDS_BIKE_SIDE_STRIP)
 
 #elif defined __TWO_STRIPS__
-  // do something here
+  #define NUM_LEDS_BIKE_CENTER_STRIP  50
+  #define NUM_LEDS_BIKE_SIDE_STRIP    30
 
 #endif
 
@@ -55,6 +60,24 @@ enum {SHOW_PATTERN, TO_CHANGE_BRIGHTNESS, CHANGE_BRIGHTNESS, TO_CHANGE_PALETTE, 
 // ************************************************************************************************************
 //            Hardware settings -- Change these to fit the board you're using
 // ************************************************************************************************************
+
+
+
+// ******* Trinket Pro Pins FOR JAKE *******
+#elif defined __TRINKET_PRO__
+  #define DATA_PIN_BIKE_CENTER_STRIP    11
+  #define DATA_PIN_BIKE_SIDE_STRIP   9
+
+  #define BUTTON_PIN_BIKE_CENTER_STRIP_AND_BRIGHTNESS_CHANGE  6
+  #define BUTTON_PIN_BIKE_SIDE_STRIP_AND_PALETTE_CHANGE  5
+
+  #define BUTTON_PIN_BIKE_CENTER_STRIP_AND_BRIGHTNESS_CHANGE_backup  3
+
+  #define PULLUP              true // these should be true for kevin's button setup
+  #define INVERT              true // these should be true for kevin's button setup
+
+
+
 
 // ******* Blinky Tape Pins *******
 #ifdef __BLINKY_TAPE__
@@ -74,22 +97,6 @@ enum {SHOW_PATTERN, TO_CHANGE_BRIGHTNESS, CHANGE_BRIGHTNESS, TO_CHANGE_PALETTE, 
 
   #define PULLUP              true // these should be true for kevin's button setup
   #define INVERT              true // these should be true for kevin's button setup  
-
-
-
-
-// ******* Trinket Pro Pins *******
-#elif defined __TRINKET_PRO__
-  #define DATA_PIN_BIKE_CENTER_STRIP    11
-//  #define DATA_PIN_BIKE_SIDE_STRIP   11
-
-  #define BUTTON_PIN_BIKE_CENTER_STRIP_AND_BRIGHTNESS_CHANGE  6
-  #define BUTTON_PIN_BIKE_SIDE_STRIP_AND_PALETTE_CHANGE  5
-
-  #define BUTTON_PIN_BIKE_CENTER_STRIP_AND_BRIGHTNESS_CHANGE_backup  3
-
-  #define PULLUP              true // these should be true for kevin's button setup
-  #define INVERT              true // these should be true for kevin's button setup
 
 
 
@@ -208,8 +215,8 @@ DEFINE_GRADIENT_PALETTE( MyRainbow_gp_2 ) {
     254,  255,  255,  255,// and white at the top
     255,  255,  255,  255};// and white at the top
 
-//CRGBPalette16 myPalette(MyRainbow_gp);
-CRGBPalette16 myPalette = RainbowColors_p;
+//CRGBPalette16 myPalette(MyRainbow_gp_2);
+// CRGBPalette16 myPalette = RainbowColors_p;
 */
 
 #endif
