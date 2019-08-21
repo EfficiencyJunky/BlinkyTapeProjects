@@ -28,7 +28,6 @@ enum {SHOW_PATTERN, TO_CHANGE_BRIGHTNESS, CHANGE_BRIGHTNESS, TO_CHANGE_PALETTE, 
 //            Strip settings -- Change these to fit your application
 // ************************************************************************************************************
 
-
 #ifdef __LIGHT_STICKS__
   #define NUM_LEDS_BIKE_CENTER_STRIP  34
   #define NUM_LEDS_BIKE_TOTAL NUM_LEDS_BIKE_CENTER_STRIP
@@ -36,7 +35,9 @@ enum {SHOW_PATTERN, TO_CHANGE_BRIGHTNESS, CHANGE_BRIGHTNESS, TO_CHANGE_PALETTE, 
 
 #elif defined __TWO_SEGMENTS_ONE_STRIP__
   // do something here
-
+  #define NUM_LEDS_BIKE_CENTER_STRIP  30
+  #define NUM_LEDS_BIKE_SIDE_STRIP    20
+  #define NUM_LEDS_BIKE_TOTAL (NUM_LEDS_BIKE_CENTER_STRIP + NUM_LEDS_BIKE_SIDE_STRIP)
 
 #elif defined __TWO_STRIPS__
   // do something here

@@ -24,105 +24,17 @@ FASTLED_USING_NAMESPACE
 //
 // ******************************************************************
 
-//trinket pro pins
-/*
-#define DATA_PIN_BIKE_CENTER_STRIP    10
-#define DATA_PIN_BIKE_SIDE_STRIP   11
-#define BUTTON_PIN_BIKE_CENTER_STRIP_AND_BRIGHTNESS_CHANGE  A1
-#define BUTTON_PIN_BIKE_SIDE_STRIP_AND_PALETTE_CHANGE  A2
-
-#define PULLUP              false // these should be true for kevin's button setup
-#define INVERT              false // these should be true for kevin's button setup
-
-*/
-
-//Blinky Tape Pins
-
-// #define DATA_PIN_BIKE_CENTER_STRIP    13
-// //#define DATA_PIN_BIKE_SIDE_STRIP   11
-
-// // Use these for strip with 2 buttons
-// #define BUTTON_PIN_BIKE_CENTER_STRIP_AND_BRIGHTNESS_CHANGE  11
-// #define BUTTON_PIN_BIKE_CENTER_STRIP_AND_BRIGHTNESS_CHANGE_backup  10
-
-// #define BUTTON_PIN_BIKE_SIDE_STRIP_AND_PALETTE_CHANGE  7
-
-// // Use these for strip with 1 button
-// //#define BUTTON_PIN_BIKE_CENTER_STRIP_AND_BRIGHTNESS_CHANGE  10
-// //#define BUTTON_PIN_BIKE_SIDE_STRIP_AND_PALETTE_CHANGE  11
-
-// #define PULLUP              true // these should be true for kevin's button setup
-// #define INVERT              true // these should be true for kevin's button setup
-
-
-
-//Teensy pins
-/*
-#define LED_ENABLE_PIN 7
-#define DATA_PIN_BIKE_CENTER_STRIP    11
-#define DATA_PIN_BIKE_SIDE_STRIP   13
-#define BUTTON_PIN_BIKE_CENTER_STRIP_AND_BRIGHTNESS_CHANGE  22
-#define BUTTON_PIN_BIKE_SIDE_STRIP_AND_PALETTE_CHANGE  21
-
-#define PULLUP              true // these should be true for kevin's button setup
-#define INVERT              true // these should be true for kevin's button setup
-
-*/
-
-// #define LED_TYPE NEOPIXEL
-
-// #define NUM_LEDS_BIKE_CENTER_STRIP  34 // 92 for Kevin's Purposes and the staff
-// //#define NUM_LEDS_BIKE_SIDE_STRIP  0   // 92 for Kevin's Purposes and the staff
-
-// //#define NUM_LEDS_BIKE_TOTAL (NUM_LEDS_BIKE_CENTER_STRIP + NUM_LEDS_BIKE_SIDE_STRIP)
-// #define NUM_LEDS_BIKE_TOTAL NUM_LEDS_BIKE_CENTER_STRIP
-
-// //#define INITIAL_BRIGHTNESS          40 //start with low brightness for Kevin's wack wiring sake (kidding kevin)
-// #define INITIAL_BRIGHTNESS          60 
-// #define BRIGHTNESS_INCREMENT          20 
-// #define BRIGHTNESS_MAX_MODULO          180 // 
-
-
-// #define DEBOUNCE_MS         20
-// #define LONG_PRESS          1000
-
-// #define FRAMES_PER_SECOND  120
-
-// #define ARRAY_SIZE(A) (sizeof(A) / sizeof((A)[0]))
-
-// //BEGIN ******* FIRE ANIMATION GLOBAL VARIABLES ********
-// // There are two main parameters you can play with to control the look and
-// // feel of your fire: COOLING (used in step 1 above), and SPARKING (used
-// // in step 3 above).
-// //
-// // COOLING: How much does the air cool as it rises?
-// // Less cooling = taller flames.  More cooling = shorter flames.
-// // Default 55, suggested range 20-100 
-// #define COOLING  55
-
-// // SPARKING: What chance (out of 255) is there that a new spark will be lit?
-// // Higher chance = more roaring fire.  Lower chance = more flickery fire.
-// // Default 120, suggested range 50-200.
-// #define SPARKING 120
-
-
-
 //PartyColors is the Instagram palette
 //CRGBPalette16 gPal(LavaColors_p);
 CRGBPalette16 gPal(HeatColors_p);
 //CRGBPalette16 gPal(CloudColors_p);
 //CRGBPalette16 gPal(PartyColors_p);
 
-//END ******* FIRE ANIMATION GLOBAL VARIABLES ********
 
 Button button_BikeCenterStrip_and_BrightnessChange(BUTTON_PIN_BIKE_CENTER_STRIP_AND_BRIGHTNESS_CHANGE, PULLUP, INVERT, DEBOUNCE_MS);
 Button button_BikeCenterStrip_and_BrightnessChange_backup(BUTTON_PIN_BIKE_CENTER_STRIP_AND_BRIGHTNESS_CHANGE_backup, PULLUP, INVERT, DEBOUNCE_MS);
 
 Button button_BikeSideStrip_and_PaletteChange(BUTTON_PIN_BIKE_SIDE_STRIP_AND_PALETTE_CHANGE, PULLUP, INVERT, DEBOUNCE_MS);
-
-
-
-
 
 
 // ********* STRIP SETUP VARIABLES FOR A SINGLE STRIP WITH MULTIPLE SEGMENTS ***************
@@ -154,7 +66,20 @@ TKsBlinkyTapeLEDController ledStrip_bike_side(&(leds_bike_side[0]), gPal, 0, NUM
 CRGB leds_bike_center[NUM_LEDS_BIKE_TOTAL];
 //CRGB leds_bike_side[NUM_LEDS_BIKE_SIDE_STRIP];
 
-TKsBlinkyTapeLEDController ledStrip_bike_center(&(leds_bike_center[0]), gPal, 0, NUM_LEDS_BIKE_CENTER_STRIP-1, true);
+#ifdef __LIGHT_STICKS__
+  TKsBlinkyTapeLEDController ledStrip_bike_center(&(leds_bike_center[0]), gPal, 0, NUM_LEDS_BIKE_CENTER_STRIP-1, true);
+
+
+#elif defined __TWO_SEGMENTS_ONE_STRIP__
+  TKsBlinkyTapeLEDController ledStrip_bike_center(&(leds_bike_center[0]), gPal, 0, NUM_LEDS_BIKE_CENTER_STRIP - 1);
+  TKsBlinkyTapeLEDController ledStrip_bike_side(&(leds_bike_center[0]), gPal, NUM_LEDS_BIKE_CENTER_STRIP, NUM_LEDS_BIKE_TOTAL - 1);
+
+
+#elif defined __TWO_STRIPS__
+  // do something here
+
+#endif
+
 
 //USE THIS IF YOU WANT THE STRIP FLIPPED FOR FIRE ANIMATION
 //TKsBlinkyTapeLEDController ledStrip_bike_center(&(leds_bike_center[0]), gPal, 0, NUM_LEDS_BIKE_CENTER_STRIP-1, true);
@@ -185,7 +110,6 @@ void setup() {
   // Third, here's a simpler, three-step gradient, from black to red to white
   //   gPal = CRGBPalette16( CRGB::Black, CRGB::Red, CRGB::White);
 //END ***** GLOBAL VARIABLE INITIALIZATION FOR FIRE ANIMATION ******
-
 
 
   // tell FastLED about the LED strip configuration
