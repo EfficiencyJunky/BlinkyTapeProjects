@@ -20,6 +20,12 @@
 #define __LIGHT_STICKS__
 #define __BLINKY_TAPE__
 
+
+/*
+#define __TWO_SEGMENTS_ONE_STRIP__
+#define __TRINKET_PRO__
+*/
+
 enum {SHOW_PATTERN, TO_CHANGE_BRIGHTNESS, CHANGE_BRIGHTNESS, TO_CHANGE_PALETTE, CHANGE_PALETTE, TO_SHOW_PATTERN};
 
 #define ARRAY_SIZE(A) (sizeof(A) / sizeof((A)[0]))
@@ -34,7 +40,7 @@ enum {SHOW_PATTERN, TO_CHANGE_BRIGHTNESS, CHANGE_BRIGHTNESS, TO_CHANGE_PALETTE, 
   #define REVERSE_STRIP_FOR_FIRE_ANIMATION true
 
 #elif defined __TWO_SEGMENTS_ONE_STRIP__
-  // do something here
+
   #define NUM_LEDS_BIKE_CENTER_STRIP  30
   #define NUM_LEDS_BIKE_SIDE_STRIP    20
   #define NUM_LEDS_BIKE_TOTAL (NUM_LEDS_BIKE_CENTER_STRIP + NUM_LEDS_BIKE_SIDE_STRIP)
@@ -74,13 +80,16 @@ enum {SHOW_PATTERN, TO_CHANGE_BRIGHTNESS, CHANGE_BRIGHTNESS, TO_CHANGE_PALETTE, 
 
 // ******* Trinket Pro Pins *******
 #elif defined __TRINKET_PRO__
-  #define DATA_PIN_BIKE_CENTER_STRIP    10
-  #define DATA_PIN_BIKE_SIDE_STRIP   11
-  #define BUTTON_PIN_BIKE_CENTER_STRIP_AND_BRIGHTNESS_CHANGE  A1
-  #define BUTTON_PIN_BIKE_SIDE_STRIP_AND_PALETTE_CHANGE  A2
+  #define DATA_PIN_BIKE_CENTER_STRIP    11
+//  #define DATA_PIN_BIKE_SIDE_STRIP   11
 
-  #define PULLUP              false // these should be true for kevin's button setup
-  #define INVERT              false // these should be true for kevin's button setup
+  #define BUTTON_PIN_BIKE_CENTER_STRIP_AND_BRIGHTNESS_CHANGE  6
+  #define BUTTON_PIN_BIKE_SIDE_STRIP_AND_PALETTE_CHANGE  5
+
+  #define BUTTON_PIN_BIKE_CENTER_STRIP_AND_BRIGHTNESS_CHANGE_backup  3
+
+  #define PULLUP              true // these should be true for kevin's button setup
+  #define INVERT              true // these should be true for kevin's button setup
 
 
 
@@ -151,7 +160,7 @@ enum {SHOW_PATTERN, TO_CHANGE_BRIGHTNESS, CHANGE_BRIGHTNESS, TO_CHANGE_PALETTE, 
 //            GLOBAL ANIMATION AND COLOR PALLETTE DECLARATIONS
 // ***************************************************************************************************************
 
-
+/*
 //add more animations here
 
 //this should always equal the number of options in AnimationType - 1 because "NONE" is not an animation
@@ -183,7 +192,7 @@ enum AnimationType {
 #define RAINBOW_ANIMATION_UPDATE_INTERVAL 15
 #define COLOR_PALETTE_ANIMATION_UPDATE_INTERVAL 15
 #define COLOR_WIPE_MIDDLE_OUT_ANIMATION_UPDATE_INTERVAL 2
-
+*/
 
 /*
 DEFINE_GRADIENT_PALETTE( MyRainbow_gp_2 ) {

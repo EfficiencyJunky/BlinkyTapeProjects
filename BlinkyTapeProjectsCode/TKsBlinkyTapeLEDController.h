@@ -41,7 +41,7 @@ class TKsBlinkyTapeLEDController
   // public variables and functions here for TKsLEDStripController
   public:
 
-    TKsBlinkyTapeLEDController(CRGB *leds, CRGBPalette16 pPalettes, uint16_t pLedStripStartIndex, uint16_t pLedStripEndIndex, bool reverseTheLEDConfiguration = false);
+    TKsBlinkyTapeLEDController(CRGB *leds, CRGBPalette16 pPalettes, uint16_t pLedStripEndIndex, bool reverseTheLEDConfiguration = false);
     void Update();
     void nextPattern();
     void nextPalette();

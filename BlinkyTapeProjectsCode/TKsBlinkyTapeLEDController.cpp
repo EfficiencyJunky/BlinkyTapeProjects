@@ -19,7 +19,8 @@
 // *****************************************************************************************************
 
 
-TKsBlinkyTapeLEDController::TKsBlinkyTapeLEDController(CRGB *leds, CRGBPalette16 pPalettes, uint16_t pLedStripStartIndex, uint16_t pLedStripEndIndex, bool reverseTheLEDConfiguration = false)
+//TKsBlinkyTapeLEDController::TKsBlinkyTapeLEDController(CRGB *leds, CRGBPalette16 pPalettes, uint16_t pLedStripStartIndex, uint16_t pLedStripEndIndex, bool reverseTheLEDConfiguration = false)
+TKsBlinkyTapeLEDController::TKsBlinkyTapeLEDController(CRGB *leds, CRGBPalette16 pPalettes, uint16_t pLedStripEndIndex, bool reverseTheLEDConfiguration = false)
 {
 
 //  LEDStripSegment ledStrip_bike_center(&(leds_bike_center[0]), gPal, 0, NUM_LEDS_BIKE_CENTER_STRIP-1);
@@ -30,9 +31,9 @@ TKsBlinkyTapeLEDController::TKsBlinkyTapeLEDController(CRGB *leds, CRGBPalette16
 
   gPalettes = pPalettes;
 
-  numPixelsInStrip = pLedStripEndIndex - pLedStripStartIndex + 1;
+  numPixelsInStrip = pLedStripEndIndex;
 
-  ledStripStartIndex = pLedStripStartIndex;
+  ledStripStartIndex = 0;
 
 //***** IMPORTANT *****
   // This code will tell the strip to reverse or not for FIRE animation
@@ -40,8 +41,16 @@ TKsBlinkyTapeLEDController::TKsBlinkyTapeLEDController(CRGB *leds, CRGBPalette16
 
 
 // GEAR DOTS
+
+#ifdef __LIGHT_STICKS__
   r1 = new Ring(ledStrip + ledStripStartIndex, numPixelsInStrip/2);
   r2 = new Ring(ledStrip + ledStripStartIndex + numPixelsInStrip/2, numPixelsInStrip/2);
+
+#elif defined __TWO_SEGMENTS_ONE_STRIP__
+  r1 = new Ring(ledStrip + ledStripStartIndex + 1, numPixelsInStrip/2 - 1);
+  r2 = new Ring(ledStrip + ledStripStartIndex + numPixelsInStrip/2 - 1, numPixelsInStrip/2);  
+#endif
+
 
   d1 = new Dot(r1, CRGB::Magenta, 0, 4, 0);
   d2 = new Dot(r1, CRGB::Orange, 6*16, 4, 0);
