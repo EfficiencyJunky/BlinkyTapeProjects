@@ -37,16 +37,6 @@ Button button_BikeCenterStrip_and_BrightnessChange_backup(BUTTON_PIN_BIKE_CENTER
 Button button_BikeSideStrip_and_PaletteChange(BUTTON_PIN_BIKE_SIDE_STRIP_AND_PALETTE_CHANGE, PULLUP, INVERT, DEBOUNCE_MS);
 
 
-// ********* STRIP SETUP VARIABLES FOR A SINGLE STRIP WITH MULTIPLE SEGMENTS ***************
-//
-// *****************************************************************************************
-/*
-CRGB leds[NUM_LEDS_TOTAL];
-
-TKsBlinkyTapeLEDController ledStrip_bike_center(&(leds[0]), 0, NUM_LEDS_BIKE_CENTER_STRIP-1);
-TKsBlinkyTapeLEDController ledStrip_bike_side(&(leds[0]), NUM_LEDS_BIKE_CENTER_STRIP, NUM_LEDS_TOTAL - 1);
-*/
-
 
 // *********** STRIP SETUP VARIABLES FOR MULTIPLE INDIVIDUAL STRIPS **********************
 //
@@ -55,8 +45,8 @@ TKsBlinkyTapeLEDController ledStrip_bike_side(&(leds[0]), NUM_LEDS_BIKE_CENTER_S
 CRGB leds_bike_center[NUM_LEDS_BIKE_CENTER_STRIP];
 CRGB leds_bike_side[NUM_LEDS_BIKE_SIDE_STRIP];
 
-TKsBlinkyTapeLEDController ledStrip_bike_center(&(leds_bike_center[0]), gPal, 0, NUM_LEDS_BIKE_CENTER_STRIP-1);
-TKsBlinkyTapeLEDController ledStrip_bike_side(&(leds_bike_side[0]), gPal, 0, NUM_LEDS_BIKE_SIDE_STRIP - 1);
+TKsBlinkyTapeLEDController ledStrip_bike_center(&(leds_bike_center[0]), gPal, NUM_LEDS_BIKE_CENTER_STRIP);
+TKsBlinkyTapeLEDController ledStrip_bike_side(&(leds_bike_side[0]), gPal, NUM_LEDS_BIKE_SIDE_STRIP);
 */
 
 // *********** STRIP SETUP VARIABLES FOR ONE STRIP WITH MULTIPLE SEGMENTS ****************
