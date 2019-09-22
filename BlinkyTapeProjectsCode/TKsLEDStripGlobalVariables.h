@@ -17,8 +17,12 @@
 // ******************************************************************
 
 
-#define __TWO_SEGMENTS_ONE_STRIP__
+
+#define __LIGHT_STICKS__
 #define __BLINKY_TAPE__
+
+//#define __TWO_SEGMENTS_ONE_STRIP__
+//#define __BLINKY_TAPE__
 
 
 /*
