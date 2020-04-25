@@ -18,11 +18,11 @@
 
 
 
-#define __LIGHT_STICKS__
-#define __BLINKY_TAPE__
-
-//#define __TWO_SEGMENTS_ONE_STRIP__
+//#define __LIGHT_STICKS__
 //#define __BLINKY_TAPE__
+
+#define __TWO_SEGMENTS_ONE_STRIP__
+#define __BLINKY_TAPE__
 
 
 /*
@@ -45,6 +45,7 @@ enum {SHOW_PATTERN, TO_CHANGE_BRIGHTNESS, CHANGE_BRIGHTNESS, TO_CHANGE_PALETTE, 
 
 #elif defined __TWO_SEGMENTS_ONE_STRIP__
 
+  // Kevin's Backpack has 20 on the straps and 60 in the grid (6x10 grid)
   #define NUM_LEDS_BIKE_CENTER_STRIP  60
   #define NUM_LEDS_BIKE_SIDE_STRIP    20
   #define NUM_LEDS_BIKE_TOTAL (NUM_LEDS_BIKE_CENTER_STRIP + NUM_LEDS_BIKE_SIDE_STRIP)
