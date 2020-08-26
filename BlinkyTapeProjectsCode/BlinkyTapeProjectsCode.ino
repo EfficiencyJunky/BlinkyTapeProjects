@@ -6,10 +6,14 @@
 //
 #include <FastLED.h>
 
+
 #include "TKsLEDStripGlobalVariables.h"
 #include "TKsBlinkyTapeLEDController.h"
 
-#include <Button.h>
+
+// This is tag 1.0.2 from the JC_Button libraries that I've renamed as "JC_Cutton_old" in order to use it with old sketches like this that won't work otherwise
+#include <JC_Button_old.h>
+//#include <JC_Button.h>
 
 
 FASTLED_USING_NAMESPACE
@@ -31,10 +35,11 @@ CRGBPalette16 gPal(HeatColors_p);
 //CRGBPalette16 gPal(PartyColors_p);
 
 
-Button button_BikeCenterStrip_and_BrightnessChange(BUTTON_PIN_BIKE_CENTER_STRIP_AND_BRIGHTNESS_CHANGE, PULLUP, INVERT, DEBOUNCE_MS);
-Button button_BikeCenterStrip_and_BrightnessChange_backup(BUTTON_PIN_BIKE_CENTER_STRIP_AND_BRIGHTNESS_CHANGE_backup, PULLUP, INVERT, DEBOUNCE_MS);
+// Button(pin, dbTime, puEnable, invert);
+Button button_BikeCenterStrip_and_BrightnessChange(BUTTON_PIN_BIKE_CENTER_STRIP_AND_BRIGHTNESS_CHANGE, DEBOUNCE_MS, PULLUP, INVERT);
+Button button_BikeCenterStrip_and_BrightnessChange_backup(BUTTON_PIN_BIKE_CENTER_STRIP_AND_BRIGHTNESS_CHANGE_backup, DEBOUNCE_MS, PULLUP, INVERT);
 
-Button button_BikeSideStrip_and_PaletteChange(BUTTON_PIN_BIKE_SIDE_STRIP_AND_PALETTE_CHANGE, PULLUP, INVERT, DEBOUNCE_MS);
+Button button_BikeSideStrip_and_PaletteChange(BUTTON_PIN_BIKE_SIDE_STRIP_AND_PALETTE_CHANGE, DEBOUNCE_MS, PULLUP, INVERT);
 
 
 
@@ -65,6 +70,7 @@ CRGB leds_bike_center[NUM_LEDS_BIKE_TOTAL];
 //  TKsBlinkyTapeLEDController ledStrip_bike_side(&(leds_bike_center[0]), gPal, NUM_LEDS_BIKE_CENTER_STRIP, NUM_LEDS_BIKE_TOTAL);
 
   TKsBlinkyTapeLEDController ledStrip_bike_side(&(leds_bike_center[0]) + NUM_LEDS_BIKE_CENTER_STRIP, gPal, NUM_LEDS_BIKE_SIDE_STRIP);
+//  TKsBlinkyTapeLEDController ledStrip_bike_side(&(leds_bike_center[0]) + NUM_LEDS_BIKE_CENTER_STRIP, gPal, NUM_LEDS_BIKE_SIDE_STRIP, true);
 
 
 #elif defined __TWO_STRIPS__

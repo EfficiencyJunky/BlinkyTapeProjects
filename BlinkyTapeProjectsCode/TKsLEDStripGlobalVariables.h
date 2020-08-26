@@ -68,14 +68,14 @@ enum {SHOW_PATTERN, TO_CHANGE_BRIGHTNESS, CHANGE_BRIGHTNESS, TO_CHANGE_PALETTE, 
   //#define DATA_PIN_BIKE_SIDE_STRIP   11
 
   // Use these for strip with 2 buttons
-  #define BUTTON_PIN_BIKE_CENTER_STRIP_AND_BRIGHTNESS_CHANGE  11
-  #define BUTTON_PIN_BIKE_CENTER_STRIP_AND_BRIGHTNESS_CHANGE_backup  10
+  #define BUTTON_PIN_BIKE_CENTER_STRIP_AND_BRIGHTNESS_CHANGE  11 // this is one of the pads on bottom of BlinkyTape
+  #define BUTTON_PIN_BIKE_CENTER_STRIP_AND_BRIGHTNESS_CHANGE_backup  10 // this is the physical button on BlinkyTape
 
-  #define BUTTON_PIN_BIKE_SIDE_STRIP_AND_PALETTE_CHANGE  7
+  #define BUTTON_PIN_BIKE_SIDE_STRIP_AND_PALETTE_CHANGE  7 // this is one of the pads on bottom of BlinkyTape
 
   // Use these for strip with 1 button
-  //#define BUTTON_PIN_BIKE_CENTER_STRIP_AND_BRIGHTNESS_CHANGE  10
-  //#define BUTTON_PIN_BIKE_SIDE_STRIP_AND_PALETTE_CHANGE  11
+  //#define BUTTON_PIN_BIKE_CENTER_STRIP_AND_BRIGHTNESS_CHANGE  10 // this is the physical button on BlinkyTape
+  //#define BUTTON_PIN_BIKE_SIDE_STRIP_AND_PALETTE_CHANGE  11 // this is one of the pads on bottom of BlinkyTape
 
   #define PULLUP              true // these should be true for kevin's button setup
   #define INVERT              true // these should be true for kevin's button setup  
