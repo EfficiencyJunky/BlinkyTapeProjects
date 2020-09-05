@@ -7,7 +7,7 @@
 #include "FastLED.h"
 #include "ring.h"
 #include "dot.h"
-#include <Button.h>
+#include <JC_Button_old.h>
 
 FASTLED_USING_NAMESPACE
 
